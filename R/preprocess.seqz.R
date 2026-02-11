@@ -15,7 +15,8 @@ preprocess.seqz<-function(seg, ploidy0=NULL, chr.in.names=TRUE, outputdir=NULL){
     outputdir = getwd()
   }
   
-  run_name<-gsub(".*/","",gsub("_small.seqz","",gsub("gz","",seg)))
+  # Removing only.gz from filename, no longer assuming _small.seqz.gz as the suffix 
+  run_name <- sub("\\.gz$", "", basename(seg))
   if(chr.in.names){
   extract<-sequenza::sequenza.extract(seg, chromosome.list=paste('chr',c(1:24),sep=''),gamma = 60, kmin = 50)
    } else {
@@ -48,3 +49,4 @@ preprocess.seqz<-function(seg, ploidy0=NULL, chr.in.names=TRUE, outputdir=NULL){
   seg<-seg[!is.na(seg$B_cn),]
   return(seg)
 }
+
