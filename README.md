@@ -41,11 +41,11 @@ Minimum requirements
 -   Software: R
 -   Operating system: Linux, OS X, Windows
 -   R version: 3.5.0
--   **latest version of Sequenza R package** must be installed from **Bitbucket** https://bitbucket.org/sequenza_tools/sequenza   
+-   **latest version of Sequenza R package** must be installed from **Bitbucket** https://bitbucket.org/sequenzatools/sequenza   
 
 ``` r
 library(devtools)
-install_bitbucket('sequenza_tools/sequenza')
+install_bitbucket('sequenzatools/sequenza')
 ```  
 
 Installation
@@ -219,3 +219,4 @@ Favero, F., T. Joshi, A. M. Marquard, N. J. Birkbak, M. Krzystanek, Q. Li, Z. Sz
 Popova, T., E. Manie, G. Rieunier, V. Caux-Moncoutier, C. Tirapo, T. Dubois, O. Delattre, et al. 2012. “Ploidy and large-scale genomic instability consistently identify basal-like breast carcinomas with BRCA1/2 inactivation.” *Cancer Res.* 72 (21): 5454–62.
 
 Van Loo, P., S. H. Nordgard, O. C. Lingj?rde, H. G. Russnes, I. H. Rye, W. Sun, V. J. Weigman, et al. 2010. “Allele-specific copy number analysis of tumors.” *Proc. Natl. Acad. Sci. U.S.A.* 107 (39): 16910–5.
+
