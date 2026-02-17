@@ -62,7 +62,7 @@ scar_score<-function(seg,reference = "grch38", chr.in.names=TRUE, m,seqz=FALSE, 
                  paste(missing_cols, collapse = ", ")))
     }
     # Add dummy Nprobes column in position 5
-    seg$Nprobes <- NA
+    seg$Nprobes <- 1
     
     # Reorder columns to match seqz structure
     seg <- seg[, c(
@@ -104,3 +104,4 @@ scar_score<-function(seg,reference = "grch38", chr.in.names=TRUE, m,seqz=FALSE, 
   write.table(t(HRDresulst),paste0(outputdir,"/",run_name,"_HRDresults.txt"),col.names=NA,sep="\t",row.names=unique(seg[,1]))
   return(t(HRDresulst))
 }
+
