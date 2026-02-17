@@ -43,11 +43,41 @@ scar_score<-function(seg,reference = "grch38", chr.in.names=TRUE, m,seqz=FALSE, 
     cat('Preprocessing finished \n')
   } else {
     seg<-read.table(seg,header=T, check.names = F, stringsAsFactors = F, sep="\t")
-    seg[,9]<-seg[,8]
-    seg[,8]<-seg[,7]
-    seg[,7]<-seg[,6]
-    seg[,10]<-rep(1,dim(seg)[1])
+    # Process headers following example input from readme, where required_cols are expected in that order
+    # Additionally, include Nprobes and contamination headers that are generated if seqz==TRUE
+    required_cols <- c(
+    "SampleID",
+    "Chromosome",
+    "Start_position",
+    "End_position",
+    "total_cn",
+    "A_cn",
+    "B_cn",
+    "ploidy"
+    )
+    missing_cols <- setdiff(required_cols, colnames(seg))
 
+    if (length(missing_cols) > 0) {
+      stop(paste("Missing required columns:",
+                 paste(missing_cols, collapse = ", ")))
+    }
+    # Add dummy Nprobes column in position 5
+    seg$Nprobes <- NA
+    
+    # Reorder columns to match seqz structure
+    seg <- seg[, c(
+      "SampleID",
+      "Chromosome",
+      "Start_position",
+      "End_position",
+      "Nprobes",
+      "total_cn",
+      "A_cn",
+      "B_cn",
+      "ploidy"
+    )]
+    # Add contamination as column 10
+    seg$contamination <- 1
   }
   #prep
   cat('Determining HRD-LOH, LST, TAI \n')
