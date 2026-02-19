@@ -61,8 +61,16 @@ scar_score<-function(seg,reference = "grch38", chr.in.names=TRUE, m,seqz=FALSE, 
       stop(paste("Missing required columns:",
                  paste(missing_cols, collapse = ", ")))
     }
-    # Add dummy Nprobes column in position 5
-    seg$Nprobes <- 1
+    
+    # Add Nprobes only if missing
+    if (!"Nprobes" %in% colnames(seg)) {
+      seg$Nprobes <- 1
+    }
+  
+    # Add contamination only if missing
+    if (!"contamination" %in% colnames(seg)) {
+      seg$contamination <- 1
+    }
     
     # Reorder columns to match seqz structure
     seg <- seg[, c(
@@ -74,10 +82,9 @@ scar_score<-function(seg,reference = "grch38", chr.in.names=TRUE, m,seqz=FALSE, 
       "total_cn",
       "A_cn",
       "B_cn",
-      "ploidy"
+      "ploidy",
+      "contamination"
     )]
-    # Add contamination as column 10
-    seg$contamination <- 1
   }
   #prep
   cat('Determining HRD-LOH, LST, TAI \n')
@@ -104,4 +111,3 @@ scar_score<-function(seg,reference = "grch38", chr.in.names=TRUE, m,seqz=FALSE, 
   write.table(t(HRDresulst),paste0(outputdir,"/",run_name,"_HRDresults.txt"),col.names=NA,sep="\t",row.names=unique(seg[,1]))
   return(t(HRDresulst))
 }
-
